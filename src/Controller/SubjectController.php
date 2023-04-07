@@ -6,6 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Entity\Subject;
+use App\Entity\User;
+use DateTimeImmutable;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+
 class SubjectController extends AbstractController
 {
     #[Route('/subject', name: 'app_subject')]
@@ -13,6 +19,30 @@ class SubjectController extends AbstractController
     {
         return $this->render('subject/index.html.twig', [
             'controller_name' => 'SubjectController',
+        ]);
+    }
+
+    #[Route('/subject/create', name: 'app_subject')]
+    public function subject(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        $subject = new Subject();
+
+        $form = $this->createForm(SubjectType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $form->getData();
+            $subject->setUser($user);
+            $subject->setCreatedAt(new DateTimeImmutable('now'));
+
+            $entityManager->persist($subject);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_subject');
+        }
+
+        return $this->render('registration/subject.html.twig', [
+            'registrationForm' => $form->createView(),
         ]);
     }
 }

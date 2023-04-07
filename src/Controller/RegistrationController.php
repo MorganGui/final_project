@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTimeImmutable;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,6 +30,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setCreatedAt(new DateTimeImmutable('now'));
 
             $entityManager->persist($user);
             $entityManager->flush();
