@@ -23,7 +23,6 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -32,9 +31,14 @@ class RegistrationController extends AbstractController
             );
             $user->setCreatedAt(new DateTimeImmutable('now'));
 
+            $email = $user->getEmail();
+            $email_parts = explode('@', $email);
+            $domain = explode('.', $email_parts[1])[0];
+
+            $user->setRoles([$domain]);
+
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
             return $this->redirectToRoute('_profiler_home');
         }

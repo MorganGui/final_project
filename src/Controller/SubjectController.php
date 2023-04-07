@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Subject;
-use App\Entity\User;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,16 +22,16 @@ class SubjectController extends AbstractController
     }
 
     #[Route('/subject/create', name: 'app_subject')]
-    public function subject(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function subject(Request $request, EntityManagerInterface $entityManager): Response
     {
         $subject = new Subject();
 
-        $form = $this->createForm(SubjectType::class, $user);
+        $form = $this->createForm(SubjectType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $form->getData();
-            $subject->setUser($user);
+            $subject->setUser($this->getUser());
             $subject->setCreatedAt(new DateTimeImmutable('now'));
 
             $entityManager->persist($subject);

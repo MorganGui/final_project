@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Board;
-use App\Entity\User;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,16 +22,16 @@ class BoardController extends AbstractController
     }
 
     #[Route('/board/create', name: 'app_board')]
-    public function board(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function board(Request $request, EntityManagerInterface $entityManager): Response
     {
         $board = new Board();
 
-        $form = $this->createForm(BoardType::class, $user);
+        $form = $this->createForm(BoardType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $form->getData();
-            $board->setUser($user);
+            $board->setUser($this->getUser());
             $board->setCreatedAt(new DateTimeImmutable('now'));
 
             $entityManager->persist($board);

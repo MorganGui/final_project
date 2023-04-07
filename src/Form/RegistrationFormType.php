@@ -12,12 +12,25 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+// use Symfony\Component\Form\Extension\Core\Type\EmailType;
+// use Symfony\Component\Validator\Constraints\Regex;
+
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email')
+            /*
+            , EmailType::class, [
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '^(?=[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+.([a-zA-Z]{2,}|(insider|collaborator|external).fr)$)[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$',
+                        'message' => 'L\'email doit finir par "@insider.fr", "@collaborator.fr" ou "@external.fr"',
+                    ]),
+                ],
+            ]
+            */
             ->add('username')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
