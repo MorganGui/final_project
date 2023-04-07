@@ -1,6 +1,9 @@
 # symfony_final_project
 
 1. Clone the repo
+```bash
+git clone https://github.com/MorganGui/symfony_final_project.git
+```
 
 2. Add a .env.local at the base of the project
 ```bash
