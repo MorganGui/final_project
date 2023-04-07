@@ -7,7 +7,7 @@
 DATABASE_URL="mysql://username:password@127.0.0.1:3306/db_name"
 ```
 
-3. start a cmd
+3. Start a cmd in the repo
 ```bash
 symfony serve
 ```
