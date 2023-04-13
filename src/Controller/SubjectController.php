@@ -21,7 +21,7 @@ class SubjectController extends AbstractController
         ]);
     }
 
-    #[Route('/subject/create', name: 'app_subject')]
+    #[Route('/subject/create', name: 'app_subject_create')]
     public function subject(Request $request, EntityManagerInterface $entityManager): Response
     {
         $subject = new Subject();

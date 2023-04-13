@@ -21,7 +21,7 @@ class MessageController extends AbstractController
         ]);
     }
 
-    #[Route('/message/create', name: 'app_message')]
+    #[Route('/message/create', name: 'app_message_create')]
     public function message(Request $request, EntityManagerInterface $entityManager): Response
     {
         $message = new Message();

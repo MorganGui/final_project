@@ -21,7 +21,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/category/create', name: 'app_category')]
+    #[Route('/category/create', name: 'app_category_create')]
     public function category(Request $request, EntityManagerInterface $entityManager): Response
     {
         $category = new Category();

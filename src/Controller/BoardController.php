@@ -21,7 +21,7 @@ class BoardController extends AbstractController
         ]);
     }
 
-    #[Route('/board/create', name: 'app_board')]
+    #[Route('/board/create', name: 'app_board_create')]
     public function board(Request $request, EntityManagerInterface $entityManager): Response
     {
         $board = new Board();

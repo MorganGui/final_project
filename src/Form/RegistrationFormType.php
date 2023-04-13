@@ -25,7 +25,7 @@ class RegistrationFormType extends AbstractType
             , EmailType::class, [
                 'constraints' => [
                     new Regex([
-                        'pattern' => '^(?=[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+.([a-zA-Z]{2,}|(insider|collaborator|external).fr)$)[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$',
+                        'pattern' => '^(?=[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+.(insider|collaborator|external).fr$)[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+.(insider|collaborator|external).fr$',
                         'message' => 'L\'email doit finir par "@insider.fr", "@collaborator.fr" ou "@external.fr"',
                     ]),
                 ],
