@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Form\MessageType;
 use App\Entity\Message;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,6 +42,7 @@ class MessageController extends AbstractController
         }
 
         return $this->render('registration/message.html.twig', [
+            'controller_name' => 'registrationForm',
             'registrationForm' => $form->createView(),
         ]);
     }
