@@ -23,27 +23,25 @@ class MessageController extends AbstractController
     }
 
     #[Route('/message/create', name: 'app_message_create')]
-    public function message(Request $request, EntityManagerInterface $entityManager): Response
+    public function createMessage(Request $request, EntityManagerInterface $entityManager): Response
     {
+        
         $message = new Message();
-
-        $form = $this->createForm(MessageType::class);
+        $message->setUser($this->getUser());
+        $message->setCreatedAt(new DateTimeImmutable('now'));
+    
+        $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            $form->getData();
-            $message->setUser($this->getUser());
-            $message->setCreatedAt(new DateTimeImmutable('now'));
-
             $entityManager->persist($message);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_message');
         }
-
-        return $this->render('registration/message.html.twig', [
-            'controller_name' => 'registrationForm',
-            'registrationForm' => $form->createView(),
+    
+        return $this->render('message/create.html.twig', [
+            'createMessage' => $form->createView(),
         ]);
     }
 }

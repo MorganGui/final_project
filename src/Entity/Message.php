@@ -6,6 +6,10 @@ use App\Repository\MessageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
 class Message
 {
@@ -78,6 +82,47 @@ class Message
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+
+
+
+
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $attachment;
+
+    /**
+     * @var UploadedFile|null
+     */
+    private $attachmentFile;
+
+    public function getAttachment(): ?string
+    {
+        return $this->attachment;
+    }
+
+    public function setAttachment(?string $attachment): self
+    {
+        $this->attachment = $attachment;
+
+        return $this;
+    }
+
+    public function getAttachmentFile(): ?UploadedFile
+    {
+        return $this->attachmentFile;
+    }
+
+    public function setAttachmentFile(?UploadedFile $attachmentFile): self
+    {
+        $this->attachmentFile = $attachmentFile;
+        if ($attachmentFile instanceof UploadedFile) {
+            $this->setAttachment($attachmentFile->getClientOriginalName());
+        }
 
         return $this;
     }
