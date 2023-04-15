@@ -1,0 +1,5 @@
+<a href="{{ path('app_subject_create', {'board': board.id})}}">Ajouter un subject</a>
+
+{% for subject in board.subjects %}
+     <h2><a href="{{ path('subject_show', {'id': subject.id})}}">{{ subject.name }} </a></h2>
+{% endfor %}

@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Tableau de bord pour la catégorie "{{ category.name }}"</h1>
+    {% for board in boards %}
+        
+    <h1>Tableau de bord pour la catégorie "{{ board.category.name }}"</h1>
+    {% endfor %}
 
     <!-- ... -->
 {% endblock %}

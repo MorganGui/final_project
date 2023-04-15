@@ -33,21 +33,27 @@ public function categoryList(EntityManagerInterface $entityManager): Response
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $category->setName($data->getName());
+            $category = $form->getData();
             
-            $category->setUser($data->getUser());
+            $category->setUser($this->getUser());
             
             $category->setCreatedAt(new DateTimeImmutable('now'));
 
             $entityManager->persist($category);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_category');
+            return $this->redirectToRoute('category_list');
         }
 
-        return $this->render('category/category.html.twig', [
-            'registrationForm' => $form->createView(),
+        return $this->render('category/create.html.twig', [
+            'CategoryForm' => $form->createView(),
         ]);
+    }
+    #[Route('/showcategory/{id}', name: 'category_show')]
+    public function showcategory(Category $category): Response{
+            return $this->render('category/categoryshow.html.twig',[
+                'category' => $category
+            ]);
+        
     }
 }

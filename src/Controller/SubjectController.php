@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-
-use App\Entity\Subject;
+use App\Entity\Board;
 use DateTimeImmutable;
+use App\Entity\Subject;
+use App\Form\SubjectType;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SubjectController extends AbstractController
 {
@@ -21,8 +23,8 @@ class SubjectController extends AbstractController
         ]);
     }
 
-    #[Route('/subject/create', name: 'app_subject_create')]
-    public function subject(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/subject/create?board={board}', name: 'app_subject_create')]
+    public function subject(Request $request, EntityManagerInterface $entityManager, Board $board): Response
     {
         $subject = new Subject();
 
@@ -30,18 +32,27 @@ class SubjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $form->getData();
+            $subject = $form->getData();
             $subject->setUser($this->getUser());
             $subject->setCreatedAt(new DateTimeImmutable('now'));
+            $subject->setBoard($board);
 
             $entityManager->persist($subject);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_subject');
+            return $this->redirectToRoute('board_show', ['id' => $board->getId()]);
         }
 
-        return $this->render('registration/subject.html.twig', [
-            'registrationForm' => $form->createView(),
+        return $this->render('subject/create.html.twig', [
+            'SubjectForm' => $form->createView(),
         ]);
+    }
+
+    #[Route('/showsubject/{id}', name: 'subject_show')]
+    public function showsubject(Subject $subject): Response{
+            return $this->render('subject/subjectshow.html.twig',[
+                'subject' => $subject
+            ]);
+        
     }
 }

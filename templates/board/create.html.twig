@@ -11,14 +11,10 @@
 <h1>Créer un message</h1>
 
     <div class="form-wrapper">
-        {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.created_at)}}
-        {{ form_row(registrationForm.user) }}
-       
+        {{ form_start(BoardForm) }}
+        {{ form_row(BoardForm.name) }}
+        {{ form_row(BoardForm.valider) }}
 
-        <button type="submit" class="btn btn-primary">Envoyer</button>
-
-        {{ form_end(registrationForm) }}
+        {{ form_end(BoardForm) }}
     </div>
 {% endblock %}

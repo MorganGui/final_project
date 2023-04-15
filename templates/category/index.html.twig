@@ -2,10 +2,10 @@
 
 {% block body %}
     <h1>Liste des catégories</h1>
-
+    <a href="{{ path('app_category_create') }}">Créer une catégorie </h2>
     <ul>
         {% for category in categories %}
-            <li><a href="{{ path('board', {'id': category.id}) }}">{{ category.name }}</a></li>
+            <li><a href="{{ path('category_show', {'id': category.id}) }}">{{ category.name }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

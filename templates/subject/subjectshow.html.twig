@@ -1,0 +1,9 @@
+
+
+<a href="{{ path('app_message_create', {'subject': subject.id})}}">Ajouter un message</a>
+
+{% for message in subject.messages %}
+
+    <h2>{{ message.content }}</h2>
+
+{% endfor %}

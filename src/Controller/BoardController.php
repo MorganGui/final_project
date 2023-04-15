@@ -2,27 +2,30 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-
 use App\Entity\Board;
+use App\Entity\Category;
 use DateTimeImmutable;
+use App\Form\BoardType;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BoardController extends AbstractController
 {
     #[Route('/board', name: 'app_board')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
+        $boards = $entityManager->getRepository(Board::class)->findAll();
         return $this->render('board/board.html.twig', [
-            'controller_name' => 'BoardController',
+            'boards' => $boards
         ]);
     }
 
-    #[Route('/board/create', name: 'app_board_create')]
-    public function board(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/board/create?category={category}', name: 'app_board_create')]
+    public function board(Request $request, EntityManagerInterface $entityManager, Category $category): Response
     {
         $board = new Board();
 
@@ -30,19 +33,25 @@ class BoardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $board->setName($data->getName());
-            $board->setUser($data->getUser());
+            $board = $form->getData();
+            $board->setUser($this->getUser());
             $board->setCreatedAt(new DateTimeImmutable('now'));
-
+            $board->setCategory($category);
             $entityManager->persist($board);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_board');
+            return $this->redirectToRoute('category_show', ['id' => $category->getId()]);
         }
 
-        return $this->render('board/board_create.html.twig', [
-            'registrationForm' => $form->createView(),
+        return $this->render('board/create.html.twig', [
+            'BoardForm' => $form->createView(),
         ]);
+    }
+    #[Route('/showboard/{id}', name: 'board_show')]
+    public function showboard(Board $board): Response{
+            return $this->render('board/boardshow.html.twig',[
+                'board' => $board
+            ]);
+        
     }
 }
