@@ -16,7 +16,7 @@ class BoardController extends AbstractController
     #[Route('/board', name: 'app_board')]
     public function index(): Response
     {
-        return $this->render('board/index.html.twig', [
+        return $this->render('board/board.html.twig', [
             'controller_name' => 'BoardController',
         ]);
     }
@@ -30,8 +30,9 @@ class BoardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $form->getData();
-            $board->setUser($this->getUser());
+            $data = $form->getData();
+            $board->setName($data->getName());
+            $board->setUser($data->getUser());
             $board->setCreatedAt(new DateTimeImmutable('now'));
 
             $entityManager->persist($board);
@@ -40,7 +41,7 @@ class BoardController extends AbstractController
             return $this->redirectToRoute('app_board');
         }
 
-        return $this->render('registration/board.html.twig', [
+        return $this->render('board/board_create.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
