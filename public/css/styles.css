@@ -20,10 +20,26 @@ nav ul {
   padding: 0;
   gap: 1em;
 }
+nav :has(.nav-dropdown) {
+  padding: 0;
+  border-radius: 1em;
+}
+nav .nav-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1em;
+  gap: .5em;
+}
 hr {
   margin: 0;
 }
 
+
+/* main */
+main {
+  height: 100%;
+}
 .category{
     margin: 3rem;
 }
@@ -35,9 +51,4 @@ hr {
 }
 .head-category h3{
     margin: 0 !important;
-}
-
-/* main */
-main {
-  height: 100%;
 }

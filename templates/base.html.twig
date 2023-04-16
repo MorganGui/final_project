@@ -20,11 +20,20 @@
     <body>
         <nav aria-label="Breadcrumb">
             <ul class="uk-breadcrumb">
-                <li class="{{ app.request.attributes.get('_route') == 'category_list' ? 'uk-disabled' : '' }}">
+                <li class="{{ (app.request.attributes.get('_route') == 'category_list') or (app.request.attributes.get('_route') == 'home') ? 'uk-disabled' : '' }}">
                     <a href="{{ path('category_list') }}" uk-icon="home"></a>
                 </li>
                 {% block path %}{% endblock %}
             </ul>
+            <div class="uk-button-group uk-iconnav">
+                <a uk-icon="user" aria-label="Toggle Dropdown"></a>
+                <div uk-dropdown="mode: click; target: !.uk-button-group;">
+                    <div class="nav-dropdown">
+                        <button class="uk-button uk-button-text">Mon profil</button>
+                        <button class="uk-button uk-button-text">Déconnexion</button>
+                    </div>
+                </div>
+            </div>
         </nav>
         <hr>
         <main>
