@@ -1,0 +1,13 @@
+
+.category{
+    margin: 3rem;
+}
+.head-category{
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.head-category h3{
+    margin: 0 !important;
+}
