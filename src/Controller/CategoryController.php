@@ -56,4 +56,27 @@ public function categoryList(EntityManagerInterface $entityManager): Response
             ]);
         
     }
+
+
+    #[Route("/delcategory/{id}", name: "category_del")]
+    public function del_category(Category $category,EntityManagerInterface $entityManager)
+    {
+        $userrole = $this->getUser()->getRoles();
+        $role = array_shift($userrole);
+        
+        if ( $role === "insider") {
+    
+    
+            $entityManager->remove($category);
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('category_list');
+        }
+        else
+
+        
+            return $this->redirectToRoute('category_list')
+            ;
+
+    }
 }
