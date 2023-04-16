@@ -9,10 +9,6 @@
         {{ form_start(createMessage) }}
         {{ form_row(createMessage.content) }}
         {{ form_row(createMessage.attachmentFile, {'label': 'Pièce jointe'}) }}
-        {{ form_row(createMessage._token) }}
-
-        <button type="submit" class="btn btn-primary">Envoyer</button>
-
         {{ form_end(createMessage) }}
     </div>
 
