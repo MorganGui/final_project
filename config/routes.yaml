@@ -6,4 +6,4 @@ controllers:
 
 home:
     path: /
-    controller: App\Controller\CategoryController::index
+    controller: App\Controller\CategoryController::categoryList
