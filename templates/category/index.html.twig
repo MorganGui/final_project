@@ -2,6 +2,10 @@
 
 {% block body %}
 
+	{% if is_granted('insider') %}
+    <p>Vous êtes un super administrateur</p>
+{% endif %}
+	
 	<div class="category">
 
 		<div class="head-category">
@@ -24,6 +28,7 @@
 			{% endfor %}
 		</div>
 	</div>
+
 
 
 {% endblock %}

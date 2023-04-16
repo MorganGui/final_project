@@ -40,5 +40,6 @@ class SecurityController extends AbstractController
                 ['user' => $user]);
          }
          return $this->redirectToRoute('category_list');
+        
     }
 }
