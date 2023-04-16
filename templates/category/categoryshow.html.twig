@@ -1,5 +1,7 @@
 
+{% extends 'base.html.twig' %}
 
+{% block body %}
 <a href="{{ path('app_board_create', {'category': category.id})}}">Ajouter un board</a>
 
 {% for board in category.boards %}
@@ -7,3 +9,4 @@
     <h2><a href="{{ path('board_show', {'id': board.id})}}">{{ board.name }} </a></h2>
 
 {% endfor %}
+{% endblock %}
