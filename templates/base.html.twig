@@ -18,6 +18,17 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}Test{% endblock %}
+        <nav aria-label="Breadcrumb">
+            <ul class="uk-breadcrumb">
+                <li class="{{ app.request.attributes.get('_route') == 'category_list' ? 'uk-disabled' : '' }}">
+                    <a href="{{ path('category_list') }}" uk-icon="home"></a>
+                </li>
+                {% block path %}{% endblock %}
+            </ul>
+        </nav>
+        <hr>
+        <main>
+            {% block body %}Test{% endblock %}
+        </main>
     </body>
 </html>
