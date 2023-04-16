@@ -43,12 +43,40 @@ main {
 .category{
     margin: 3rem;
 }
+
+.uk-button{
+    border-radius: 3px !important;
+}
 .head-category{
-    
+    margin-bottom: 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .head-category h3{
     margin: 0 !important;
+}
+.card-category{
+    padding: 0 !important;
+    padding-bottom: 3rem !important;
+}
+.card-category h3{
+    padding: 2rem ;
+    
+}
+.content-card{
+    margin-bottom: 1rem;
+    padding-left: 4rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(117, 117, 117, 0.406);
+    border-top: 1px solid rgba(117, 117, 117, 0.406);
+}
+.content-card p{
+    margin: 0 !important;
+}
+
+/* main */
+main {
+  height: 100%;
 }
