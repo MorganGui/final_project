@@ -16,8 +16,12 @@ class BoardType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('valider', SubmitType::class);
+            ->add('name', TextType::class, ['attr' => [
+                "class" => "uk-input"
+            ]])
+            ->add('valider', SubmitType::class, ['attr' => [
+                "class" => "uk-input valider"
+            ]]);
         ;
     }
 
