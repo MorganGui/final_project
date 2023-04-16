@@ -29,12 +29,22 @@
                 <a uk-icon="user" aria-label="Toggle Dropdown"></a>
                 <div uk-dropdown="mode: click; target: !.uk-button-group;">
                     <div class="nav-dropdown">
-                        <a href="{{ path('app_profile') }}">
-                            <button class="uk-button uk-button-text">Mon profil</button>
-                        </a>
-                        <a href="{{ path('app_logout') }}">
-                            <button class="uk-button uk-button-text">Déconnexion</button>
-                        </a>
+                        {% if app.user %}
+                            <a href="{{ path('app_profile') }}">
+                                <button class="uk-button uk-button-text">Mon profil</button>
+                            </a>
+                            <a href="{{ path('app_logout') }}">
+                                <button class="uk-button uk-button-text">Déconnexion</button>
+                            </a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}">
+                                <button class="uk-button uk-button-text">Se connecter</button>
+                            </a>
+                            <a href="{{ path('app_register') }}">
+                                <button class="uk-button uk-button-text">S'inscrire</button>
+                            </a>
+                        {% endif %}
+                        
                     </div>
                 </div>
             </div>
