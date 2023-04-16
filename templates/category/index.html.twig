@@ -3,25 +3,24 @@
 {% block body %}
 
 	<div class="category">
+
 		<div class="head-category">
 			<h3>Catégories</h3>
-			<a class="uk-link-reset" href="{{ path('app_category_create') }}">Créer une catégorie</a>
+
+			<a class="uk-link-reset" href="{{ path('app_category_create') }}">
+				<button class="uk-button uk-button-primary">Créer une catégories</button>
+			</a>
 
 		</div>
 
-		<div class="category  uk-card uk-card-default uk-card-body ">
-
+		<div class="card-category uk-card uk-card-default uk-card-body ">
 			<h3>Liste des catégories</h3>
 			{% for category in categories %}
-				<a href="{{ path('category_show', {'id': category.id}) }}">
-					<div class="card-category uk-card uk-card-default uk-card-hover uk-card-body ">
-
-
+				<div class="content-card">
+					<a href="{{ path('category_show', {'id': category.id}) }}">
 						<p>{{ category.name }}</p>
-
-					</div>
-				</a>
-
+					</a>
+				</div>
 			{% endfor %}
 		</div>
 	</div>
