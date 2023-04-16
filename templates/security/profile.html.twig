@@ -3,5 +3,44 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
-    <h2>{{ user.email }}<h2>
+<div class="container">
+    <div class="card">
+        <h3>Profil</h3>
+        <h4>Changer le mot de passe</h4>
+        <form>
+            <input class="uk-input" type="password" name="oldPassword" id="inputOldPassword" required placeholder="Ancien mot de passe" autofocus>
+            <input class="uk-input" type="password" name="newPassword" id="inputNewPassword" required placeholder="Nouveau Mot de passe">
+            <button class="uk-button uk-button-primary" type="submit">Valider</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 2em;
+    }
+    .card {
+        width: 100%;
+        min-width: unset;
+        max-width: 750px;
+        padding: 4em;
+        border-radius: 1em;
+        box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    }
+    .card h3 {
+        margin: 0;
+    }
+    .card h4 {
+        margin-top: .75em;
+        margin-bottom: .25em;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+    }
+</style>
 {% endblock %}

@@ -19,32 +19,46 @@
     </head>
     <body>
         <nav aria-label="Breadcrumb">
+            {# path #}
             <ul class="uk-breadcrumb">
                 <li class="{{ (app.request.attributes.get('_route') == 'category_list') or (app.request.attributes.get('_route') == 'home') ? 'uk-disabled' : '' }}">
                     <a href="{{ path('category_list') }}" uk-icon="home"></a>
                 </li>
                 {% block path %}{% endblock %}
             </ul>
-            <div class="uk-button-group uk-iconnav">
-                <a uk-icon="user" aria-label="Toggle Dropdown"></a>
+            {# user dropdown #}
+            <div class="uk-button-group">
+                {{ app.user ? app.user.username : '' }}
+                <a uk-icon="user" aria-label="Toggle Dropdown" class="uk-margin-small-left"></a>
                 <div uk-dropdown="mode: click; target: !.uk-button-group;">
                     <div class="nav-dropdown">
                         {% if app.user %}
-                            <a href="{{ path('app_profile') }}">
-                                <button class="uk-button uk-button-text">Mon profil</button>
-                            </a>
-                            <a href="{{ path('app_logout') }}">
-                                <button class="uk-button uk-button-text">Déconnexion</button>
-                            </a>
+                            <div>
+                                <span uk-icon="icon: user; ratio: .75;"></span>
+                                <a href="{{ path('app_profile') }}" class="uk-margin-small-left">
+                                    <button class="uk-button uk-button-text">Mon profil</button>
+                                </a>
+                            </div>
+                            <div>
+                                <span uk-icon="icon: sign-out; ratio: .75;"></span>
+                                <a href="{{ path('app_logout') }}" class="uk-margin-small-left">
+                                    <button class="uk-button uk-button-text">Déconnexion</button>
+                                </a>
+                            </div>
                         {% else %}
-                            <a href="{{ path('app_login') }}">
-                                <button class="uk-button uk-button-text">Se connecter</button>
-                            </a>
-                            <a href="{{ path('app_register') }}">
-                                <button class="uk-button uk-button-text">S'inscrire</button>
-                            </a>
+                            <div>
+                                <span uk-icon="icon: user; ratio: .75;"></span>
+                                <a href="{{ path('app_login') }}" class="uk-margin-small-left">
+                                    <button class="uk-button uk-button-text">Se connecter</button>
+                                </a>
+                            </div>
+                            <div>
+                                <span uk-icon="icon: sign-in; ratio: .75;"></span>
+                                <a href="{{ path('app_register') }}" class="uk-margin-small-left">
+                                    <button class="uk-button uk-button-text">S'inscrire</button>
+                                </a>
+                            </div>
                         {% endif %}
-                        
                     </div>
                 </div>
             </div>
